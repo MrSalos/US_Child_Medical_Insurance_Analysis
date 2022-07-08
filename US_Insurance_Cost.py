@@ -3,6 +3,7 @@ import csv
 male_minors_list = []
 female_minors_list = []
 all_minors_list = []
+regions = ['southeast', 'southwest', 'northeast', 'northwest']
 
 minors_filtered_region = {
     'southeast': [],
@@ -90,6 +91,26 @@ def main():
     print(f'Total number of obese minors: {len(obese_list)}\nTotal number of overweight minors: {len(overweight_list)}\nTotal number of underweight minors: {len(underweight_list)}')
     for region in minors_filtered_region:
         print(f'The average price for {region} is ${avg_price_per_region(region)}')
+
+    #Under age smoker by region
+    total_smokers = 0
+    for region in minors_filtered_region:
+        total_smokers_by_region = 0
+        for kid in minors_filtered_region[region]:
+            if kid['smoker'] == 'yes':
+                total_smokers_by_region += 1
+        print(f'The total number of underaged smokers in {region} is {total_smokers_by_region}')
+        total_smokers += total_smokers_by_region
+
+    # under age parents by region
+    for region in minors_filtered_region:
+        parents = 0
+        for kid in minors_filtered_region[region]:
+            if int(kid['children']) != 0:
+                parents += int(kid['children'])
+        print(f'The total number of underaged parents in {region} is {parents}')
+
+
 
 if __name__ == '__main__':
     main()
